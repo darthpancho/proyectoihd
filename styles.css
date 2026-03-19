@@ -1,0 +1,398 @@
+/* =========================================================
+   Hoja de estilos principal del sitio
+   ---------------------------------------------------------
+   Este archivo define los colores, tamaños, espaciados,
+   animaciones y diseño general de todas las páginas.
+   La idea es que un solo CSS controle el aspecto visual
+   del sitio completo.
+   ========================================================= */
+
+/* Variables CSS:
+   Aquí guardamos colores reutilizables para mantener
+   el código ordenado y fácil de modificar. */
+:root {
+  --orgullo: #e53935;
+  --resistencia: #fb8c00;
+  --visibilidad: #fdd835;
+  --memoria: #43a047;
+  --diversidad: #1e88e5;
+  --libertad: #8e24aa;
+
+  --orgullo-claro: #fde9e7;
+  --resistencia-claro: #fff0e1;
+  --visibilidad-claro: #fff9dc;
+  --memoria-claro: #e8f5e9;
+  --diversidad-claro: #e7f1fd;
+  --libertad-claro: #f3e5f5;
+
+  --texto: #222;
+  --texto-suave: #555;
+  --fondo-principal: #fcfcfc;
+  --blanco: #ffffff;
+  --sombra: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --borde-redondo: 18px;
+  --ancho-maximo: 1100px;
+}
+
+/* Selector universal:
+   Hace que el cálculo de tamaños incluya bordes y padding.
+   Esto ayuda mucho a controlar el diseño. */
+* {
+  box-sizing: border-box;
+}
+
+/* Estilos generales del documento. */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+  color: var(--texto);
+  background: var(--fondo-principal);
+}
+
+/* Estilo general para enlaces. */
+a {
+  color: inherit;
+}
+
+/* Encabezado fijo en la parte superior.
+   Se usa en todas las páginas para mantener la navegación visible. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Contenedor centrado que limita el ancho del contenido. */
+.header-inner,
+.main-content,
+.footer-inner,
+.hero,
+.credits-box {
+  width: min(92%, var(--ancho-maximo));
+  margin: 0 auto;
+}
+
+/* Título pequeño del sitio en la esquina superior izquierda. */
+.site-brand {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Barra de navegación con flexbox.
+   Flexbox ayuda a acomodar elementos en filas o columnas. */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+/* Lista del menú. */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botones/enlaces del menú. */
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: bold;
+  padding: 0.65rem 0.95rem;
+  border-radius: 999px;
+  background: var(--blanco);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección principal de bienvenida en index.html */
+.hero {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 3rem 0 4rem;
+}
+
+.hero-box {
+  background: var(--blanco);
+  border-radius: 28px;
+  box-shadow: var(--sombra);
+  padding: 2rem;
+  width: min(100%, 900px);
+}
+
+.hero h1 {
+  margin-top: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.hero p {
+  color: var(--texto-suave);
+  font-size: 1.1rem;
+  max-width: 60ch;
+  margin: 1rem auto 0;
+}
+
+/* Contenedor de la animación.
+   Tiene altura fija para que las palabras cambien en el mismo lugar. */
+.word-stage {
+  margin: 2rem auto 1rem;
+  position: relative;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Cada palabra está posicionada una encima de otra.
+   La animación controla su aparición y desaparición. */
+.word {
+  position: absolute;
+  font-size: clamp(2rem, 7vw, 4.7rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  opacity: 0;
+  transform: scale(0.85) translateY(20px);
+  animation: cambioPalabras 12s infinite;
+}
+
+/* Retrasos para que las palabras aparezcan una después de otra. */
+.word:nth-child(1) { color: var(--orgullo); animation-delay: 0s; }
+.word:nth-child(2) { color: var(--resistencia); animation-delay: 2s; }
+.word:nth-child(3) { color: var(--visibilidad); animation-delay: 4s; }
+.word:nth-child(4) { color: var(--memoria); animation-delay: 6s; }
+.word:nth-child(5) { color: var(--diversidad); animation-delay: 8s; }
+.word:nth-child(6) { color: var(--libertad); animation-delay: 10s; }
+
+/* Animación principal.
+   Hace que cada palabra entre, permanezca visible y salga.
+   Luego el ciclo vuelve a empezar. */
+@keyframes cambioPalabras {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  8% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  24% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  32% {
+    opacity: 0;
+    transform: scale(1.08) translateY(-18px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.08) translateY(-18px);
+  }
+}
+
+/* Tarjetas y áreas de contenido para páginas internas. */
+.main-content {
+  padding: 2.5rem 0 4rem;
+}
+
+.content-card {
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--sombra);
+  border-radius: 24px;
+  padding: 2rem;
+}
+
+.page-title {
+  margin-top: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.intro {
+  font-size: 1.1rem;
+}
+
+/* Diseño para imágenes.
+   max-width: 100% evita que se salgan del contenedor. */
+.figure-block {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.figure-block img {
+  width: min(100%, 760px);
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.figure-block figcaption {
+  margin-top: 0.7rem;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+/* Caja para iframes o visualizaciones externas. */
+.embed-box {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+  overflow: auto;
+}
+
+/* Listas estilizadas para la página Diversidad. */
+.feature-list {
+  padding-left: 1.35rem;
+}
+
+.feature-list li {
+  margin-bottom: 0.9rem;
+}
+
+/* Pie de página. */
+.site-footer {
+  padding: 1.4rem 0 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+.footer-link {
+  text-decoration: underline;
+}
+
+/* Página de créditos. */
+.credits-wrapper {
+  min-height: calc(100vh - 90px);
+  display: grid;
+  place-items: center;
+  padding: 2rem 0 4rem;
+}
+
+.credits-box {
+  background: var(--blanco);
+  box-shadow: var(--sombra);
+  border-radius: 28px;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+/* Clases de color por página.
+   Cada body tendrá una de estas clases para cambiar el ambiente visual. */
+body.orgullo-page { background: var(--orgullo-claro); }
+body.resistencia-page { background: var(--resistencia-claro); }
+body.visibilidad-page { background: var(--visibilidad-claro); }
+body.memoria-page { background: var(--memoria-claro); }
+body.diversidad-page { background: var(--diversidad-claro); }
+body.libertad-page { background: var(--libertad-claro); }
+body.home-page,
+body.credits-page { background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%); }
+
+/* Línea decorativa debajo de los títulos. */
+.title-accent {
+  width: 120px;
+  height: 8px;
+  border-radius: 999px;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Colores para la línea decorativa según la página. */
+.orgullo-accent { background: var(--orgullo); }
+.resistencia-accent { background: var(--resistencia); }
+.visibilidad-accent { background: var(--visibilidad); }
+.memoria-accent { background: var(--memoria); }
+.diversidad-accent { background: var(--diversidad); }
+.libertad-accent { background: var(--libertad); }
+
+/* Adaptación para pantallas pequeñas.
+   Media query = reglas que cambian según el tamaño de pantalla. */
+@media (max-width: 760px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+
+  .hero-box,
+  .content-card,
+  .credits-box {
+    padding: 1.3rem;
+  }
+
+  .word-stage {
+    height: 100px;
+  }
+
+  iframe {
+    width: 100%;
+  }
+}
+
+/* Colores individuales para cada botón del menú */
+
+/* ORGULLO - rojo */
+.orgullo {
+  color: red;
+}
+
+/* RESISTENCIA - naranja */
+.resistencia {
+  color: orange;
+}
+
+/* VISIBILIDAD - amarillo */
+.visibilidad {
+  color: gold;
+}
+
+/* MEMORIA - verde */
+.memoria {
+  color: green;
+}
+
+/* DIVERSIDAD - azul */
+.diversidad {
+  color: blue;
+}
+
+/* LIBERTAD - violeta */
+.libertad {
+  color: violet;
+}
+
+nav a:hover {
+  opacity: 0.7; /* hace un pequeño efecto visual */
+}
+
+/* Estilo para iframes */
+iframe {
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px; /* esquinas suaves */
+}
