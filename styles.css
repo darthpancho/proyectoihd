@@ -1,15 +1,16 @@
 /* =========================================================
-   Hoja de estilos principal del sitio
+   Hoja de estilos - versión narrativa del proyecto
    ---------------------------------------------------------
-   Este archivo define los colores, tamaños, espaciados,
-   animaciones y diseño general de todas las páginas.
-   La idea es que un solo CSS controle el aspecto visual
-   del sitio completo.
+   Esta versión sustituye el menú tradicional por un recorrido
+   secuencial entre páginas. La idea es que cada pantalla se
+   sienta como un capítulo dentro de una misma historia.
    ========================================================= */
 
-/* Variables CSS:
-   Aquí guardamos colores reutilizables para mantener
-   el código ordenado y fácil de modificar. */
+/* Importación de tipografías desde Google Fonts.
+   Se usa una fuente moderna para texto y otra con más carácter
+   para títulos. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
 :root {
   --orgullo: #e53935;
   --resistencia: #fb8c00;
@@ -18,57 +19,53 @@
   --diversidad: #1e88e5;
   --libertad: #8e24aa;
 
-  --orgullo-claro: #fde9e7;
-  --resistencia-claro: #fff0e1;
-  --visibilidad-claro: #fff9dc;
-  --memoria-claro: #e8f5e9;
-  --diversidad-claro: #e7f1fd;
-  --libertad-claro: #f3e5f5;
+  --orgullo-claro: #fff1ef;
+  --resistencia-claro: #fff4e8;
+  --visibilidad-claro: #fffceb;
+  --memoria-claro: #eef9ef;
+  --diversidad-claro: #eff6ff;
+  --libertad-claro: #f7effb;
 
-  --texto: #222;
-  --texto-suave: #555;
-  --fondo-principal: #fcfcfc;
+  --texto: #1e1e1e;
+  --texto-suave: #5b5b5b;
+  --fondo-principal: #fcfcfd;
   --blanco: #ffffff;
-  --sombra: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --borde-redondo: 18px;
-  --ancho-maximo: 1100px;
+  --borde-suave: rgba(0, 0, 0, 0.08);
+  --sombra: 0 18px 45px rgba(0, 0, 0, 0.08);
+  --sombra-suave: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --borde-redondo: 24px;
+  --ancho-maximo: 1120px;
 }
 
-/* Selector universal:
-   Hace que el cálculo de tamaños incluya bordes y padding.
-   Esto ayuda mucho a controlar el diseño. */
 * {
   box-sizing: border-box;
 }
 
-/* Estilos generales del documento. */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.7;
+  font-family: 'Manrope', Arial, Helvetica, sans-serif;
+  line-height: 1.75;
   color: var(--texto);
   background: var(--fondo-principal);
 }
 
-/* Estilo general para enlaces. */
+img {
+  max-width: 100%;
+  display: block;
+  margin: 20px auto;   /* centra horizontalmente */
+}
+
 a {
   color: inherit;
 }
 
-/* Encabezado fijo en la parte superior.
-   Se usa en todas las páginas para mantener la navegación visible. */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-/* Contenedor centrado que limita el ancho del contenido. */
-.header-inner,
-.main-content,
+/* Contenedores generales reutilizables. */
+.site-shell,
+.story-layout,
 .footer-inner,
 .hero,
 .credits-box {
@@ -76,103 +73,150 @@ a {
   margin: 0 auto;
 }
 
-/* Título pequeño del sitio en la esquina superior izquierda. */
-.site-brand {
-  font-weight: bold;
-  letter-spacing: 1px;
+/* Encabezado simplificado.
+   Ya no contiene menú; funciona como marco visual del relato. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.86);
+  border-bottom: 1px solid var(--borde-suave);
 }
 
-/* Barra de navegación con flexbox.
-   Flexbox ayuda a acomodar elementos en filas o columnas. */
-.navbar {
+.site-shell {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   padding: 1rem 0;
 }
 
-/* Lista del menú. */
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.site-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.92rem;
 }
 
-/* Botones/enlaces del menú. */
-.nav-links a {
+.top-link {
   text-decoration: none;
+  font-weight: 700;
   font-size: 0.95rem;
-  font-weight: bold;
-  padding: 0.65rem 0.95rem;
+  padding: 0.75rem 1rem;
   border-radius: 999px;
-  background: var(--blanco);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--borde-suave);
+  box-shadow: var(--sombra-suave);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.nav-links a:hover,
-.nav-links a:focus {
+.top-link:hover,
+.top-link:focus {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
-/* Sección principal de bienvenida en index.html */
+/* Página principal */
 .hero {
   min-height: calc(100vh - 90px);
   display: grid;
   place-items: center;
-  text-align: center;
   padding: 3rem 0 4rem;
 }
 
 .hero-box {
-  background: var(--blanco);
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 32px;
   box-shadow: var(--sombra);
-  padding: 2rem;
-  width: min(100%, 900px);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  width: min(100%, 980px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mancha decorativa para dar un aspecto más contemporáneo. */
+.hero-box::before {
+  content: "";
+  position: absolute;
+  inset: auto -80px -80px auto;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(142, 36, 170, 0.16), transparent 70%);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  margin-bottom: 1rem;
+}
+
+.hero h1,
+.page-title,
+.credits-box h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  line-height: 1.1;
 }
 
 .hero h1 {
-  margin-top: 0;
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  max-width: 12ch;
+}
+
+/* Texto con degradado arcoiris.
+   background-clip permite que el degradado se vea solo dentro del texto. */
+.rainbow-text {
+  background: linear-gradient(
+    90deg,
+    var(--orgullo),
+    var(--resistencia),
+    var(--visibilidad),
+    var(--memoria),
+    var(--diversidad),
+    var(--libertad)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero p {
   color: var(--texto-suave);
-  font-size: 1.1rem;
-  max-width: 60ch;
-  margin: 1rem auto 0;
+  font-size: 1.08rem;
+  max-width: 75ch;
+  margin: 1rem 0 0;
 }
 
-/* Contenedor de la animación.
-   Tiene altura fija para que las palabras cambien en el mismo lugar. */
 .word-stage {
-  margin: 2rem auto 1rem;
+  margin: 2.5rem 0 1rem;
   position: relative;
-  height: 120px;
-  display: grid;
-  place-items: center;
+  min-height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  text-align: center;
 }
 
-/* Cada palabra está posicionada una encima de otra.
-   La animación controla su aparición y desaparición. */
 .word {
   position: absolute;
-  font-size: clamp(2rem, 7vw, 4.7rem);
-  font-weight: 900;
-  letter-spacing: 0.12em;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.3rem, 8vw, 5.1rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   opacity: 0;
-  transform: scale(0.85) translateY(20px);
-  animation: cambioPalabras 12s infinite;
+  transform: translateY(30px) scale(0.92);
+  animation: narrarColor 12s infinite;
 }
 
-/* Retrasos para que las palabras aparezcan una después de otra. */
 .word:nth-child(1) { color: var(--orgullo); animation-delay: 0s; }
 .word:nth-child(2) { color: var(--resistencia); animation-delay: 2s; }
 .word:nth-child(3) { color: var(--visibilidad); animation-delay: 4s; }
@@ -180,66 +224,165 @@ a {
 .word:nth-child(5) { color: var(--diversidad); animation-delay: 8s; }
 .word:nth-child(6) { color: var(--libertad); animation-delay: 10s; }
 
-/* Animación principal.
-   Hace que cada palabra entre, permanezca visible y salga.
-   Luego el ciclo vuelve a empezar. */
-@keyframes cambioPalabras {
+/* Animación principal de la portada.
+   Cada palabra entra con suavidad, permanece visible y luego sale. */
+@keyframes narrarColor {
   0% {
     opacity: 0;
-    transform: scale(0.85) translateY(20px);
+    transform: translateY(32px) scale(0.92);
+    filter: blur(4px);
   }
   8% {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
   24% {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
-  32% {
+  34% {
     opacity: 0;
-    transform: scale(1.08) translateY(-18px);
+    transform: translateY(-24px) scale(1.06);
+    filter: blur(3px);
   }
   100% {
     opacity: 0;
-    transform: scale(1.08) translateY(-18px);
+    transform: translateY(-24px) scale(1.06);
+    filter: blur(3px);
   }
 }
 
-/* Tarjetas y áreas de contenido para páginas internas. */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cta-button,
+.ghost-button,
+.story-button {
+  text-decoration: none;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 0.95rem 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.cta-button {
+  background: linear-gradient(90deg, var(--orgullo), var(--libertad));
+  color: white;
+  box-shadow: 0 14px 28px rgba(142, 36, 170, 0.22);
+}
+
+.ghost-button {
+  background: white;
+  border: 1px solid var(--borde-suave);
+  box-shadow: var(--sombra-suave);
+}
+
+.cta-button:hover,
+.ghost-button:hover,
+.story-button:hover,
+.cta-button:focus,
+.ghost-button:focus,
+.story-button:focus {
+  transform: translateY(-2px);
+}
+
+.story-preview {
+  margin-top: 2.25rem;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.story-chip {
+  text-align: center;
+  padding: 0.9rem 0.7rem;
+  border-radius: 18px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: white;
+  box-shadow: var(--sombra-suave);
+}
+
+.chip-orgullo { background: var(--orgullo); }
+.chip-resistencia { background: var(--resistencia); }
+.chip-visibilidad { background: #dfbf14; }
+.chip-memoria { background: var(--memoria); }
+.chip-diversidad { background: var(--diversidad); }
+.chip-libertad { background: var(--libertad); }
+
+/* Páginas narrativas internas */
 .main-content {
-  padding: 2.5rem 0 4rem;
+  padding: 2.2rem 0 4rem;
+}
+
+.story-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.story-intro,
+.content-card,
+.credits-box {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 28px;
+  box-shadow: var(--sombra);
+}
+
+.story-intro {
+  padding: 1.3rem 1.4rem;
+}
+
+.story-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.story-intro p {
+  margin: 0;
+  color: var(--texto-suave);
 }
 
 .content-card {
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: var(--sombra);
-  border-radius: 24px;
-  padding: 2rem;
+  padding: clamp(1.4rem, 3vw, 2.3rem);
 }
 
 .page-title {
-  margin-top: 0;
-  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
 }
 
 .intro {
-  font-size: 1.1rem;
+  font-size: 1.08rem;
 }
 
-/* Diseño para imágenes.
-   max-width: 100% evita que se salgan del contenedor. */
+.title-accent {
+  width: 128px;
+  height: 8px;
+  border-radius: 999px;
+  margin: 0.9rem 0 1.5rem;
+}
+
 .figure-block {
   margin: 2rem 0;
   text-align: center;
 }
 
 .figure-block img {
-  width: min(100%, 760px);
-  max-width: 100%;
+  width: min(100%, 780px);
   height: auto;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
 .figure-block figcaption {
@@ -248,25 +391,82 @@ a {
   font-size: 0.95rem;
 }
 
-/* Caja para iframes o visualizaciones externas. */
 .embed-box {
   margin: 2rem 0;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 22px;
   overflow: auto;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
-/* Listas estilizadas para la página Diversidad. */
 .feature-list {
   padding-left: 1.35rem;
 }
 
 .feature-list li {
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.95rem;
 }
 
-/* Pie de página. */
+iframe {
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+  max-width: 100%;
+}
+
+/* Navegación narrativa entre páginas. */
+.story-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.2rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.story-link {
+  flex: 1 1 240px;
+  text-decoration: none;
+  background: white;
+  border: 1px solid var(--borde-suave);
+  border-radius: 22px;
+  padding: 1rem 1.1rem;
+  box-shadow: var(--sombra-suave);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.story-link:hover,
+.story-link:focus {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+.story-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.story-target {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  margin-top: 0.2rem;
+}
+
+.story-button {
+  display: inline-block;
+  background: white;
+  border: 1px solid var(--borde-suave);
+  box-shadow: var(--sombra-suave);
+}
+
+/* Pie de página */
 .site-footer {
   padding: 1.4rem 0 2rem;
 }
@@ -274,6 +474,7 @@ a {
 .footer-inner {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
   color: var(--texto-suave);
@@ -284,42 +485,29 @@ a {
   text-decoration: underline;
 }
 
-/* Página de créditos. */
+/* Página de créditos */
 .credits-wrapper {
   min-height: calc(100vh - 90px);
   display: grid;
   place-items: center;
-  padding: 2rem 0 4rem;
+  padding: 3rem 0 4rem;
 }
 
 .credits-box {
-  background: var(--blanco);
-  box-shadow: var(--sombra);
-  border-radius: 28px;
   padding: 2rem;
-  max-width: 800px;
+  max-width: 860px;
 }
 
-/* Clases de color por página.
-   Cada body tendrá una de estas clases para cambiar el ambiente visual. */
-body.orgullo-page { background: var(--orgullo-claro); }
-body.resistencia-page { background: var(--resistencia-claro); }
-body.visibilidad-page { background: var(--visibilidad-claro); }
-body.memoria-page { background: var(--memoria-claro); }
-body.diversidad-page { background: var(--diversidad-claro); }
-body.libertad-page { background: var(--libertad-claro); }
+/* Fondos por capítulo */
+body.orgullo-page { background: linear-gradient(180deg, #fff8f7 0%, var(--orgullo-claro) 100%); }
+body.resistencia-page { background: linear-gradient(180deg, #fffaf2 0%, var(--resistencia-claro) 100%); }
+body.visibilidad-page { background: linear-gradient(180deg, #fffef6 0%, var(--visibilidad-claro) 100%); }
+body.memoria-page { background: linear-gradient(180deg, #f7fff7 0%, var(--memoria-claro) 100%); }
+body.diversidad-page { background: linear-gradient(180deg, #f7fbff 0%, var(--diversidad-claro) 100%); }
+body.libertad-page { background: linear-gradient(180deg, #fbf7ff 0%, var(--libertad-claro) 100%); }
 body.home-page,
-body.credits-page { background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%); }
+body.credits-page { background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%); }
 
-/* Línea decorativa debajo de los títulos. */
-.title-accent {
-  width: 120px;
-  height: 8px;
-  border-radius: 999px;
-  margin: 0.5rem 0 1.5rem;
-}
-
-/* Colores para la línea decorativa según la página. */
 .orgullo-accent { background: var(--orgullo); }
 .resistencia-accent { background: var(--resistencia); }
 .visibilidad-accent { background: var(--visibilidad); }
@@ -327,72 +515,53 @@ body.credits-page { background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%
 .diversidad-accent { background: var(--diversidad); }
 .libertad-accent { background: var(--libertad); }
 
-/* Adaptación para pantallas pequeñas.
-   Media query = reglas que cambian según el tamaño de pantalla. */
-@media (max-width: 760px) {
-  .navbar {
+/* Colores para etiquetas narrativas */
+.orgullo-tone { color: var(--orgullo); }
+.resistencia-tone { color: var(--resistencia); }
+.visibilidad-tone { color: #b79b00; }
+.memoria-tone { color: var(--memoria); }
+.diversidad-tone { color: var(--diversidad); }
+.libertad-tone { color: var(--libertad); }
+
+/* Diseño adaptable para pantallas pequeñas */
+@media (max-width: 820px) {
+  .site-shell {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .nav-links {
-    width: 100%;
-  }
-
   .hero-box,
   .content-card,
+  .story-intro,
   .credits-box {
-    padding: 1.3rem;
+    padding: 1.25rem;
+  }
+
+  .story-preview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .word-stage {
-    height: 100px;
+    min-height: 96px;
+  }
+}
+
+@media (max-width: 560px) {
+  .story-preview {
+    grid-template-columns: 1fr;
   }
 
-  iframe {
+  .hero-actions,
+  .story-nav {
+    flex-direction: column;
+  }
+
+  .cta-button,
+  .ghost-button,
+  .story-button,
+  .story-link,
+  .top-link {
     width: 100%;
+    text-align: center;
   }
-}
-
-/* Colores individuales para cada botón del menú */
-
-/* ORGULLO - rojo */
-.orgullo {
-  color: red;
-}
-
-/* RESISTENCIA - naranja */
-.resistencia {
-  color: orange;
-}
-
-/* VISIBILIDAD - amarillo */
-.visibilidad {
-  color: gold;
-}
-
-/* MEMORIA - verde */
-.memoria {
-  color: green;
-}
-
-/* DIVERSIDAD - azul */
-.diversidad {
-  color: blue;
-}
-
-/* LIBERTAD - violeta */
-.libertad {
-  color: violet;
-}
-
-nav a:hover {
-  opacity: 0.7; /* hace un pequeño efecto visual */
-}
-
-/* Estilo para iframes */
-iframe {
-  display: block;
-  margin: 20px auto;
-  border-radius: 10px; /* esquinas suaves */
 }

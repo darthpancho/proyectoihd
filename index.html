@@ -9,30 +9,24 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="home-page">
-  <!-- Encabezado del sitio con navegación principal -->
+  <!-- Encabezado sencillo: mantiene la identidad del sitio sin usar menú tradicional -->
   <header class="site-header">
-    <div class="header-inner navbar">
+    <div class="site-shell">
       <div class="site-brand">PROYECTO FINAL IHD</div>
-      <nav aria-label="Navegación principal">
-        <ul class="nav-links">
-          <li><a href="index.html">INICIO</a></li>
-          <li><a class="orgullo" href="orgullo.html">ORGULLO</a></li>
-          <li><a class="resistencia" href="resistencia.html">RESISTENCIA</a></li>
-          <li><a class="visibilidad" href="visibilidad.html">VISIBILIDAD</a></li>
-          <li><a class="memoria" href="memoria.html">MEMORIA</a></li>
-          <li><a class="diversidad" href="diversidad.html">DIVERSIDAD</a></li>
-          <li><a class="libertad" href="libertad.html">LIBERTAD</a></li>
-        </ul>
-      </nav>
+      <a class="top-link" href="creditos.html">Créditos</a>
     </div>
   </header>
 
-  <!-- Sección principal con texto de bienvenida y animación -->
+  <!-- Portada principal del recorrido narrativo -->
   <main class="hero">
     <section class="hero-box">
-      <h1>Lucha de la Comunidad LGBT+</h1>
+      <span class="eyebrow">Un recorrido narrativo por la bandera LGBT+</span>
+      <h1>
+        La lucha de la comunidad
+        <span class="rainbow-text">LGBT+</span>
+      </h1>
 
-      <!-- Este contenedor reúne las palabras animadas. -->
+      <!-- Animación de palabras clave. Cada término aparece de forma secuencial con CSS. -->
       <div class="word-stage" aria-label="Animación de conceptos del orgullo LGBT+">
         <span class="word">ORGULLO</span>
         <span class="word">RESISTENCIA</span>
@@ -43,18 +37,21 @@
       </div>
 
       <p>
-        Esta página reúne seis conceptos fundamentales para pensar la historia,
-        la lucha y la presencia de la comunidad LGBT+. Usa el menú para recorrer
-        cada sección y explorar textos, imágenes y materiales interactivos.
+        Este sitio propone un trayecto continuo a través de los colores de la bandera del orgullo. En lugar de un menú tradicional, cada página funciona como un capítulo que conduce al siguiente:
+        del orgullo como afirmación colectiva, a la resistencia, la visibilidad, la memoria, la diversidad y, finalmente, la libertad como horizonte aún en disputa.
       </p>
+
+      <!-- Botones principales para comenzar el relato o consultar la autoría -->
+      <div class="hero-actions">
+        <a class="cta-button" href="orgullo.html">Comenzar el recorrido</a>
+      </div>
     </section>
   </main>
 
-  <!-- Pie de página con enlace a créditos -->
+  <!-- Pie con una breve descripción educativa del proyecto -->
   <footer class="site-footer">
     <div class="footer-inner">
       <span>Sitio web educativo para Humanidades Digitales.</span>
-      <a class="footer-link" href="creditos.html">Créditos y autoría</a>
     </div>
   </footer>
 </body>
